@@ -1,8 +1,7 @@
 import { IS_INIT } from "../../Action";
 
 export const initState = {
-    isInit: false,
-    test: "Simple test"
+    isInit: false
 };
 
 export function RootReducer(state = initState, action) {
