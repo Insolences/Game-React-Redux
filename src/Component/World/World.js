@@ -1,24 +1,24 @@
 import React from "react";
-// import s from "./World_module.css"
-import Player from "../Player/Player.container";
-import { Map } from "../Map";
+import Player from "../Player/Player";
+import { Map } from "../Map/Map";
+import {connect} from "react-redux";
+import {actionIsInit} from "../../Config/Action";
 
 
-export class World extends React.Component {
+class World extends React.Component {
     componentDidMount() {
-        this.props.isInitEvent()
+        this.props.init()
     }
 
     render() {
         return (
             <div
-                // className={s.world}
                 style={{
                 width: 800,
                 height: 600,
                 margin: "20px auto",
                 position: "relative"
-           }}
+                }}
             >
                 <Map/>
                 <Player/>
@@ -26,3 +26,13 @@ export class World extends React.Component {
         );
     }
 }
+
+
+export default connect(
+    state => ({
+        isInit: state.app.isInit,
+    }),
+    dispatch => ({
+        init: () => dispatch(actionIsInit())
+    }),
+)(World);

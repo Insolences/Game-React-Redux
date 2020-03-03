@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import { RootReducer } from "./RootReducer";
 import {PlayerReducer} from "../../Component/Player/Player.reducer";
 import { MapReducer } from "../../Component/Map/Map.reducer"
+import {WorldReducer} from "../../Component/World/World.reducer";
 
 export default combineReducers({
-    app: RootReducer,
+    app: WorldReducer,
     player: PlayerReducer,
     map: MapReducer
 })
