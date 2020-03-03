@@ -3,7 +3,14 @@ import {SPRITE_SIZE} from "../Constants/constants"
 
 export function playerMovement(player) {
 
+    let allowed = true;
+
     window.addEventListener("keydown", (e)=>{
+        if (e.repeat != undefined) {
+            allowed = !e.repeat;
+        }
+        if (!allowed) return;
+        allowed = false;
         handleMovement(e)
     });
 
