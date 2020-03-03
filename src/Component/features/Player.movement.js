@@ -27,7 +27,8 @@ export function playerMovement(player) {
         store.dispatch({
             type: "MOVE_PLAYER",
             payload: {
-                position: getNewPosition(direction)
+                position: getNewPosition(direction),
+                side: getNewSide(direction)
             }
         })
     }
@@ -39,6 +40,15 @@ export function playerMovement(player) {
             case "EAST": return [oldPos[0] + SPRITE_SIZE, oldPos[1]];
             case "NORTH": return [oldPos[0], oldPos[1] - SPRITE_SIZE];
             case "SOUTH": return [oldPos[0], oldPos[1] + SPRITE_SIZE];
+        }
+    }
+
+    function getNewSide(direction) {
+        switch (direction) {
+            case "WEST": return "WEST";
+            case "EAST": return "EAST";
+            case "NORTH": return "NORTH";
+            case "SOUTH": return "SOUTH";
         }
     }
     return player

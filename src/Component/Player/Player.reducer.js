@@ -2,7 +2,8 @@ import {IS_INIT, MOVE_PLAYER} from "../../Config/Action";
 
 export const initState = {
     isInit: false,
-    position: [0,0]
+    position: [0,0],
+    side: ''
 };
 
 

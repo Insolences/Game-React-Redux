@@ -14,8 +14,8 @@ class World extends React.Component {
         return (
             <div
                 style={{
-                width: 800,
-                height: 600,
+                width: 1300,
+                height: 780,
                 margin: "20px auto",
                 position: "relative"
                 }}
