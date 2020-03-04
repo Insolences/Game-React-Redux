@@ -1,7 +1,6 @@
 import React from "react";
 import s from "./Map.module.css"
 
-
 export class Map extends React.Component {
 
     render() {

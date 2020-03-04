@@ -1,4 +1,4 @@
-import {store} from "../../index";
+import {store} from "../index";
 import {SPRITE_SIZE} from "../Constants/constants"
 
 export function playerMovement(player) {

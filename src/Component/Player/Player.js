@@ -2,9 +2,10 @@ import React from "react";
 import s from "./Player.module.css";
 import { connect } from 'react-redux';
 import { actionIsInit } from "../../Config/Action";
-import { playerMovement } from "../features/Player.movement";
+import { playerMovement } from "../../features/Player.movement";
 import playerSprite from "../../dist/Sprite/Player/Player_move_south.png"
 import Spritesheet from "react-responsive-spritesheet";
+import {SpriteAnimation} from "../../OtherComponents/SpriteAnimation";
 
 class Player extends React.Component {
 
@@ -31,6 +32,9 @@ class Player extends React.Component {
                 }
             }
             >
+                {/*<SpriteAnimation*/}
+                {/*    side={this.props.side}*/}
+                {/*/>*/}
               <Spritesheet
                 heightFrame={64}
                 steps={9}
