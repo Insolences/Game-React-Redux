@@ -1,1 +1,1 @@
-export const SPRITE_SIZE = 65;
+export const SPRITE_SIZE = 64;

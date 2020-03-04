@@ -3,8 +3,8 @@ import s from "./Player.module.css";
 import { connect } from 'react-redux';
 import { actionIsInit } from "../../Config/Action";
 import { playerMovement } from "../features/Player.movement";
-import playerSprite from "../../dist/img/Player.png"
-import Spritesheet from "react-responsive-spritesheet/src/js/Spritesheet";
+import playerSprite from "../../dist/Sprite/Player/Player_move_south.png"
+import Spritesheet from "react-responsive-spritesheet";
 
 class Player extends React.Component {
 
@@ -21,18 +21,27 @@ class Player extends React.Component {
 
     render() {
         return (
-
-            // <Spritesheet heightFrame={65} steps={10} fps={12} image={playerSprite} direction={`forward`} widthFrame={65} autoplay={true} backgroundPosition={"0px, 715px"}/>
             <div className={s.player} style={
                 {
                     left: this.props.position[0],
                     top: this.props.position[1],
                     transition: "1s ease all",
-                    backgroundImage: `url(${playerSprite})`,
-                    backgroundPosition: "0px, 715px"
+                    // backgroundImage: `url(${playerSprite})`,
+                    // backgroundPosition: "0px, 715px"
                 }
             }
-            />
+            >
+              <Spritesheet
+                heightFrame={64}
+                steps={9}
+                fps={11}
+                loop={true}
+                backgroundSize={'cover'}
+                image={playerSprite}
+                widthFrame={64}
+                autoplay={true}
+              />
+            </div>
 
         );
     }
