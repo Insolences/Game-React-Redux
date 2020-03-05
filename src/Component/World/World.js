@@ -1,11 +1,11 @@
 import React from "react";
 import Player from "../Player/Player";
-import { Map } from "../Map/Map";
+import  Map  from "../Map/Map";
 import {connect} from "react-redux";
 import {actionIsInit} from "../../Config/Action";
 
 
-class World extends React.Component {
+class World extends React.PureComponent {
     componentDidMount() {
         this.props.init()
     }

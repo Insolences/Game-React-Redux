@@ -1,13 +1,9 @@
-// import React from "react";
-//
-// function importAll(r) {
-//     return r.keys().map(r);
-// }
-//
-// const images = importAll(require.context('./', false, /\.(png|jpe?g|svg)$/));
-// console.log(images);
-//
-// export const PLAYER_MOVE_WEST = images('Player_move_west');
-// export const PLAYER_MOVE_NORTH = images('Player_move_north');
-// export const PLAYER_MOVE_EAST = images('Player_move_east');
-// export const PLAYER_MOVE_SOUTH = images('Player_move_south');
+import MOVE_WEST from "../dist/Sprite/Player/Player_move_west.png"
+import MOVE_NORTH from "../dist/Sprite/Player/Player_move_north.png"
+import MOVE_EAST from "../dist/Sprite/Player/Player_move_east.png"
+import MOVE_SOUTH from "../dist/Sprite/Player/Player_move_south.png"
+
+export const PLAYER_MOVE_WEST = MOVE_WEST;
+export const PLAYER_MOVE_NORTH = MOVE_NORTH;
+export const PLAYER_MOVE_EAST = MOVE_EAST;
+export const PLAYER_MOVE_SOUTH = MOVE_SOUTH;

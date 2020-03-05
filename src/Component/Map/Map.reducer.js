@@ -1,7 +1,8 @@
 import { IS_INIT } from "../../Config/Action";
-
+import { tileMap } from "../../data/stages/level_1"
 export const initState = {
-    isInit: false
+    isInit: false,
+    tileMap: tileMap
 };
 
 export function MapReducer(state = initState, action) {

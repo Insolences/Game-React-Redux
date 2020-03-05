@@ -1,11 +1,12 @@
-import {IS_INIT, MOVE_PLAYER} from "../../Config/Action";
+import {IS_INIT, MOVE_PLAYER, STOP_PLAYER} from "../../Config/Action";
 
 export const initState = {
     isInit: false,
     position: [0,0],
-    side: ''
+    side: 'SOUTH',
+    steps: 0,
+    stand: true
 };
-
 
 
 export function PlayerReducer(state = initState, action) {
@@ -14,6 +15,9 @@ export function PlayerReducer(state = initState, action) {
             return {...state, isInit: true};
         }
         case MOVE_PLAYER: {
+            return {...state, ...action.payload}
+        }
+        case STOP_PLAYER:{
             return {...state, ...action.payload}
         }
     }

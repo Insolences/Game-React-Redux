@@ -2,22 +2,29 @@ import React from "react";
 import s from "./Player.module.css";
 import { connect } from 'react-redux';
 import { actionIsInit } from "../../Config/Action";
-import { playerMovement } from "../../features/Player.movement";
-import playerSprite from "../../dist/Sprite/Player/Player_move_south.png"
-import Spritesheet from "react-responsive-spritesheet";
-import {SpriteAnimation} from "../../OtherComponents/SpriteAnimation";
+import { playerMovement } from "../../features/player.movement";
+import {SpriteAnimation} from "../../otherComponents/SpriteAnimation";
+import {
+    PLAYER_MOVE_EAST,
+    PLAYER_MOVE_NORTH,
+    PLAYER_MOVE_SOUTH,
+    PLAYER_MOVE_WEST
+} from "../../Constants/Animation.sprite";
 
-class Player extends React.Component {
+class Player extends React.PureComponent {
 
     componentDidMount() {
         this.props.init();
     }
 
-    playerAnimation(){
-      let player = {
-          side: this.props.side
-      };
-
+    playerSide(){
+        const side = this.props.side;
+        switch (side) {
+            case "WEST": return PLAYER_MOVE_WEST;
+            case "NORTH": return PLAYER_MOVE_NORTH;
+            case "EAST": return PLAYER_MOVE_EAST;
+            case "SOUTH": return PLAYER_MOVE_SOUTH;
+        }
     }
 
     render() {
@@ -26,25 +33,22 @@ class Player extends React.Component {
                 {
                     left: this.props.position[0],
                     top: this.props.position[1],
-                    transition: "1s ease all",
-                    // backgroundImage: `url(${playerSprite})`,
-                    // backgroundPosition: "0px, 715px"
+                    transition: "1s linear all",
                 }
             }
             >
-                {/*<SpriteAnimation*/}
-                {/*    side={this.props.side}*/}
-                {/*/>*/}
-              <Spritesheet
-                heightFrame={64}
-                steps={9}
-                fps={11}
-                loop={true}
-                backgroundSize={'cover'}
-                image={playerSprite}
-                widthFrame={64}
-                autoplay={true}
-              />
+                {this.props.stand?
+                    <div style={{
+                        width: '100%',
+                        height: '100%',
+                        background: `url(${this.playerSide()})`
+                    }}/>
+                    :
+                    <SpriteAnimation
+                        side={this.props.side}
+                        steps={this.props.steps}
+                    />
+                }
             </div>
 
         );
@@ -55,25 +59,11 @@ export default connect(
     state => ({
         isInit: state.player.isInit,
         position: state.player.position,
-        side: state.player.side
+        side: state.player.side,
+        steps: state.player.steps,
+        stand: state.player.stand
     }),
     dispatch => ({
         init: () => dispatch(actionIsInit()),
     }),
 )(playerMovement(Player));
-
-// const playerAnimation = (side) => {
-//     let playerSide = this.props.side;
-//     console.log(playerSide)
-// };
-//
-// export  connect(
-//   state => ({
-//       isInit: state.player.isInit,
-//       position: state.player.position,
-//       side: state.player.side
-//   }),
-//   dispatch => ({
-//       init: () => dispatch(actionIsInit()),
-//   }),
-// )(playerAnimation(Player));

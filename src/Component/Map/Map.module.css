@@ -1,6 +1,11 @@
 .map{
     width: 1280px;
     height: 768px;
-    background-color: green;
+    /*background-color: green;*/
 }
 
+/*w: 40, h: 24*/
+
+.row{
+    display: flex;
+}
