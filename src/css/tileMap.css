@@ -1,0 +1,23 @@
+.green{
+    background-image: url("../dist/img/earth/terran1.png");
+}
+
+.black1{
+    background-image: url("../dist/img/rock/rock1.png");
+}
+
+.black2{
+    background-image: url("../dist/img/rock/rock2.png");
+}
+
+.black3{
+    background-image: url("../dist/img/rock/rock3.png");
+}
+
+.brown1{
+    background-image: url("../dist/img/Tree/tree1.png");
+}
+
+.brown2{
+    background-image: url("../dist/img/Tree/tree2.png");
+}

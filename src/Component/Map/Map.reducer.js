@@ -1,5 +1,5 @@
 import { IS_INIT } from "../../Config/Action";
-import { tileMap } from "../../data/stages/level_1"
+import { tileMap } from "../../data/Map/level_1"
 export const initState = {
     isInit: false,
     tileMap: tileMap

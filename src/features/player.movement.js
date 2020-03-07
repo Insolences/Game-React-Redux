@@ -1,23 +1,28 @@
 import {store} from "../index";
 import {MAP_HEIGHT, MAP_WIDTH, SPRITE_SIZE} from "../Constants/constants"
-import { timer } from "./timer";
+import { getNewAction } from "../features/player.action"
+export function playerMovement() {
 
-export function playerMovement(player) {
+    let stopMovement = function () {
+        if (!store.getState().player.stand){
+            store.dispatch({
+                type: "STOP_PLAYER",
+                payload: {
+                    stand: true,
+                }
+            });
+        } return null;
+    };
+
+     function checkButton(e){
+        if (e.code === 'ArrowUp' || e.code === 'ArrowDown' || e.code === 'ArrowLeft' || e.code === 'ArrowRight') return true;
+    }
 
     window.addEventListener("keydown", (e)=>{
-        e.preventDefault();
         e.stopPropagation();
-        if (store.getState().player.stand){
-            timer(1, function () {
-                handleMovement(e)
-            }, function () {
-                store.dispatch({
-                    type: "STOP_PLAYER",
-                    payload: {
-                        stand: true,
-                    }
-                });
-            });
+        e.preventDefault();
+        if (checkButton(e) && store.getState().player.stand && !store.getState().player.shoot){
+            handleMovement(e);
         }
     });
 
@@ -25,10 +30,10 @@ export function playerMovement(player) {
         e.preventDefault();
         e.stopPropagation();
         switch (e.keyCode) {
-            case 37: return checkMove("WEST");
-            case 38: return checkMove("NORTH");
-            case 39: return checkMove("EAST");
-            case 40: return checkMove("SOUTH");
+            case 37: return checkMove("WALK_WEST");
+            case 38: return checkMove("WALK_NORTH");
+            case 39: return checkMove("WALK_EAST");
+            case 40: return checkMove("WALK_SOUTH");
         }
     }
 
@@ -40,9 +45,13 @@ export function playerMovement(player) {
                 position: newPos,
                 side: action.side,
                 steps: action.steps,
-                stand: false
+                animation: action.animation,
+                stand: false,
             }
-        })
+        });
+        setTimeout(()=>{
+            stopMovement();
+        },1000)
     }
 
     function checkMove(direction) {
@@ -50,7 +59,8 @@ export function playerMovement(player) {
         const newPos = getNewPosition(direction);
         if (permittedBorderMovement(oldPos, newPos) && permittedPlayerMovement(newPos)){
             dispatchMove(direction, newPos)
-        } return oldPos;
+        }
+        return oldPos;
     }
     
     function permittedBorderMovement(oldPos, newPos) {
@@ -73,21 +83,13 @@ export function playerMovement(player) {
     function getNewPosition(direction) {
         const oldPos = store.getState().player.position;
         switch (direction) {
-            case "WEST": return [oldPos[0] - SPRITE_SIZE, oldPos[1]];
-            case "EAST": return [oldPos[0] + SPRITE_SIZE, oldPos[1]];
-            case "NORTH": return [oldPos[0], oldPos[1] - SPRITE_SIZE];
-            case "SOUTH": return [oldPos[0], oldPos[1] + SPRITE_SIZE];
+            case "WALK_WEST": return [oldPos[0] - SPRITE_SIZE, oldPos[1]];
+            case "WALK_EAST": return [oldPos[0] + SPRITE_SIZE, oldPos[1]];
+            case "WALK_NORTH": return [oldPos[0], oldPos[1] - SPRITE_SIZE];
+            case "WALK_SOUTH": return [oldPos[0], oldPos[1] + SPRITE_SIZE];
         }
     }
 
-    function getNewAction(direction) {
-        switch (direction) {
-            case "WEST": return {side: "WEST", steps: 7};
-            case "EAST": return {side: "EAST", steps: 7};
-            case "NORTH": return {side: "NORTH", steps: 7};
-            case "SOUTH": return {side: "SOUTH", steps: 7};
-        }
-    }
-    return player
+
 }
 
