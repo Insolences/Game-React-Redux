@@ -9,7 +9,7 @@ import {
     PLAYER_MOVE_NORTH,
     PLAYER_MOVE_SOUTH,
     PLAYER_MOVE_WEST,
-} from "../../Constants/Animation.sprite";
+} from "../../constants/Animation.sprite";
 
 class Player extends React.PureComponent {
 

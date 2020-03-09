@@ -5,8 +5,6 @@ import {actionIsInit} from "../../Config/Action";
 import {Tile} from "../Tile/Tile"
 class Map extends React.PureComponent {
 
-
-
     render() {
         return (
             <div className={s.map}>

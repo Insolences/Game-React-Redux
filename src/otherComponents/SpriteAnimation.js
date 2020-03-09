@@ -9,7 +9,7 @@ import {
     PLAYER_SHOOT_NORTH,
     PLAYER_SHOOT_EAST,
     PLAYER_SHOOT_SOUTH
-} from "../Constants/Animation.sprite"
+} from "../constants/Animation.sprite"
 
 export class SpriteAnimation extends React.PureComponent{
 

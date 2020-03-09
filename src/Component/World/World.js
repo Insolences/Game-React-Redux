@@ -1,6 +1,7 @@
 import React from "react";
 import Player from "../Player/Player";
 import Map  from "../Map/Map";
+import Arrow from "../Arrow/Arrow";
 import {connect} from "react-redux";
 import {actionIsInit} from "../../Config/Action";
 
@@ -8,6 +9,16 @@ import {actionIsInit} from "../../Config/Action";
 class World extends React.PureComponent {
     componentDidMount() {
         this.props.init()
+    }
+
+
+    arrowFlight(){
+        if ((this.props.arrowInMap).length > 0){
+            return (
+                this.props.arrowInMap.map((el)=><Arrow index={el} playerPositionForShoot={this.props.playerPositionForShoot} playerSideForShoot={this.props.playerSideForShoot}/>)
+            )
+        }
+        return null;
     }
 
     render() {
@@ -22,6 +33,7 @@ class World extends React.PureComponent {
             >
                 <Map/>
                 <Player/>
+                {this.arrowFlight()}
             </div>
         );
     }
@@ -30,7 +42,11 @@ class World extends React.PureComponent {
 
 export default connect(
     state => ({
-        isInit: state.app.isInit,
+        isInit: state.world.isInit,
+        shoot: state.player.shoot,
+        playerPositionForShoot: state.player.position,
+        playerSideForShoot: state.player.side,
+        arrowInMap: state.world.arrowInMap
     }),
     dispatch => ({
         init: () => dispatch(actionIsInit())

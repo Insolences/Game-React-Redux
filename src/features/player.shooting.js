@@ -25,19 +25,6 @@ export function playerShooting() {
         }
     }
 
-    function stopShoot() {
-        if (store.getState().player.shoot){
-                store.dispatch({
-                    type: "SHOOT_PLAYER",
-                    payload: {
-                        shoot: false,
-                        steps: 0,
-                        animation: '',
-                    }
-                });
-        } return null
-    }
-
     function dispatchShoot(){
         let action = getNewAction(playerSideShooting());
         store.dispatch({
@@ -53,6 +40,16 @@ export function playerShooting() {
         },1000)
     }
 
-
-
+    function stopShoot() {
+        if (store.getState().player.shoot){
+                store.dispatch({
+                    type: "STOP_SHOOT_PLAYER",
+                    payload: {
+                        shoot: false,
+                        steps: 0,
+                        animation: '',
+                    }
+                });
+        } return null
+    }
 }

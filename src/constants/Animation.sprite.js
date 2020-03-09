@@ -15,3 +15,7 @@ export const PLAYER_SHOOT_WEST = SHOOT_WEST;
 export const PLAYER_SHOOT_NORTH = SHOOT_NORTH;
 export const PLAYER_SHOOT_EAST = SHOOT_EAST;
 export const PLAYER_SHOOT_SOUTH = SHOOT_SOUTH;
+// export const ARROW_MOVE_WEST = ARROW_WEST;
+// export const ARROW_MOVE_NORTH = ARROW_NORTH;
+// export const ARROW_MOVE_EAST = ARROW_EAST;
+// export const ARROW_MOVE_SOUTH = ARROW_SOUTH;

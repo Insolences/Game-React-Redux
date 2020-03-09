@@ -1,4 +1,4 @@
-import {IS_INIT, MOVE_PLAYER, SHOOT_PLAYER, STOP_PLAYER} from "../../Config/Action";
+import {IS_INIT, MOVE_PLAYER, SHOOT_PLAYER, STOP_PLAYER, STOP_SHOOT_PLAYER} from "../../Config/Action";
 
 export const initState = {
     isInit: false,
@@ -23,6 +23,9 @@ export function PlayerReducer(state = initState, action) {
             return {...state, ...action.payload}
         }
         case SHOOT_PLAYER:{
+            return {...state, ...action.payload}
+        }
+        case STOP_SHOOT_PLAYER:{
             return {...state, ...action.payload}
         }
     }

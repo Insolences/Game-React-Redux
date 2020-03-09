@@ -1,5 +1,5 @@
 import {store} from "../index";
-import {MAP_HEIGHT, MAP_WIDTH, SPRITE_SIZE} from "../Constants/constants"
+import {MAP_HEIGHT, MAP_WIDTH, SPRITE_SIZE} from "../constants/constants"
 import { getNewAction } from "../features/player.action"
 export function playerMovement() {
 
@@ -9,6 +9,8 @@ export function playerMovement() {
                 type: "STOP_PLAYER",
                 payload: {
                     stand: true,
+                    animation: '',
+                    steps: 0
                 }
             });
         } return null;

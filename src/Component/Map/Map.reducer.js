@@ -1,8 +1,8 @@
-import { IS_INIT } from "../../Config/Action";
+import {IS_INIT, SHOOT_PLAYER} from "../../Config/Action";
 import { tileMap } from "../../data/Map/level_1"
 export const initState = {
     isInit: false,
-    tileMap: tileMap
+    tileMap: tileMap,
 };
 
 export function MapReducer(state = initState, action) {
@@ -11,5 +11,6 @@ export function MapReducer(state = initState, action) {
             return {...state, isInit: true};
         }
     }
+
     return state;
 }
