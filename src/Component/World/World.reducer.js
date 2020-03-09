@@ -15,7 +15,6 @@ export function WorldReducer(state = initState, action) {
             return {...state, isInit: true};
         }
         case MOVE_PLAYER: {
-            console.log(action.payload);
             return {...state, playerPositionForShoot: position, playerSideForShoot: side}
         }
         case SHOOT_PLAYER:{
