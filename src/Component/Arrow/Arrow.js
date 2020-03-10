@@ -77,6 +77,7 @@ class Arrow extends React.PureComponent {
             this.sideToStartPosition(newPos, playerSideForShoot)
         }
         console.log('isLife: false');
+        this.props.isLife();
         this.setState({
             isLife: false
         });

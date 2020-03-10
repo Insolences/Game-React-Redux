@@ -1,4 +1,10 @@
-import {IS_INIT, MOVE_PLAYER, SHOOT_PLAYER, STOP_PLAYER, STOP_SHOOT_PLAYER} from "../../Config/Action";
+import {
+    IS_INIT,
+    MOVE_PLAYER,
+    SHOOT_PLAYER,
+    STOP_SHOOT_PLAYER,
+    IS_LIFE_ARROW
+} from "../../Config/Action";
 
 export const initState = {
     isInit: false,
@@ -24,6 +30,11 @@ export function WorldReducer(state = initState, action) {
         }
         case STOP_SHOOT_PLAYER:{
             return {...state, playerShoot: shoot}
+        }
+        case IS_LIFE_ARROW: {
+            let newArrowInMap = state.arrowInMap;
+            newArrowInMap.shift();
+            return {...state, arrowInMap: newArrowInMap }
         }
     }
     return state;
