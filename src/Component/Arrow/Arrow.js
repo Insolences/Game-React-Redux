@@ -1,6 +1,5 @@
 import React from "react";
 import {connect} from "react-redux";
-import { actionIsLifeArrow } from "../../Config/Action";
 import {MAP_HEIGHT, MAP_WIDTH, SPRITE_SIZE} from "../../constants/constants"
 import {store} from "../../index";
 import {
@@ -10,58 +9,50 @@ import {
     ARROW_MOVE_WEST
 } from "../../constants/Animation.sprite";
 
-
 class Arrow extends React.PureComponent {
 
     state = {
       isLife: true,
-      // positionLeft: this.sideToStartPosition(this.props.playerPositionForShoot, this.props.playerSideForShoot)[0],
-      // positionTop: this.sideToStartPosition(this.props.playerPositionForShoot, this.props.playerSideForShoot)[1],
+      position: [this.props.playerPositionForShoot[0],this.props.playerPositionForShoot[1]],
     };
 
     componentDidMount() {
-        // this.props.isLife();
-        this.testArrow()
-    }
-
-    testArrow() {
-        // let sideToMove =  store.getState().world.playerSideForShoot;
-        // console.log(sideToMove)
-        // function checkMove(direction) {
-        //     const oldPos = store.getState().player.position;
-        //     const newPos = getNewPosition(direction);
-        //     if (permittedBorderMovement(oldPos, newPos) && permittedPlayerMovement(newPos)){
-        //         dispatchMove(direction, newPos)
-        //     }
-        //     return oldPos;
-        // }
+        this.sideToStartPosition(this.props.playerPositionForShoot, this.props.playerSideForShoot);
     }
 
     spriteToMoveArrow(playerSide){
         switch (playerSide) {
             case "WEST" : return ARROW_MOVE_WEST;
+            break;
             case "NORTH" : return ARROW_MOVE_NORTH;
+            break;
             case "EAST" : return ARROW_MOVE_EAST;
+            break;
             case "SOUTH" : return ARROW_MOVE_SOUTH;
         }
     }
 
     sideToStartPosition(playerPositionForShoot, playerSideForShoot){
+        console.log('playerSideForShoot: ', playerSideForShoot);
         let newPos;
         let oldPos = playerPositionForShoot;
+        console.log("oldPos: ", oldPos);
         switch (playerSideForShoot) {
             case "WEST": newPos =  [
                 oldPos[0] - SPRITE_SIZE,
                 oldPos[1]
             ];
-            case "NORTH": newPos =  [
-                oldPos[0] ,
-                oldPos[1] - SPRITE_SIZE
-            ];
+                break;
             case "EAST": newPos =  [
                 oldPos[0] + SPRITE_SIZE ,
                 oldPos[1]
             ];
+                break;
+            case "NORTH": newPos =  [
+                oldPos[0] ,
+                oldPos[1] - SPRITE_SIZE
+            ];
+                break;
             case "SOUTH":
                 newPos = [
                     oldPos[0] ,
@@ -69,15 +60,20 @@ class Arrow extends React.PureComponent {
             ];
 
         }
+        console.log(oldPos, newPos, playerSideForShoot);
         this.movementArrow(oldPos, newPos, playerSideForShoot)
     }
 
     movementArrow(oldPos, newPos, playerSideForShoot){
         if (this.permittedBorderMovement(oldPos, newPos) && this.permittedArrowMovement(newPos)){
-            this.sideToStartPosition(newPos, playerSideForShoot)
+            this.setState({
+                position: newPos
+            });
+            setTimeout(()=>this.sideToStartPosition(newPos, playerSideForShoot),20)
         }
-        console.log('isLife: false');
-        this.props.isLife();
+        store.dispatch({
+            type: "IS_STOP_LIFE_ARROW"
+        });
         this.setState({
             isLife: false
         });
@@ -87,7 +83,7 @@ class Arrow extends React.PureComponent {
         return  (newPos[0] >= 0 && newPos[0] <= MAP_WIDTH - SPRITE_SIZE) &&
           (newPos[1] >= 0 && newPos[1] <= MAP_HEIGHT - SPRITE_SIZE)
     }
-    //
+
     permittedArrowMovement(newArrowPos) {
         let newTileForArrow;
         const tileMap = store.getState().map.tileMap;
@@ -103,25 +99,25 @@ class Arrow extends React.PureComponent {
     renderArrow(){
         return (
           <div style={{
-              background: this.spriteToMoveArrow(this.props.playerSideForShoot),
-              "background-position": "center",
+              display: "flex",
+              "align-items": "center",
+              "justify-content": "center",
               width: 64,
               height: 64,
-              transition: "4s linear all",
+              transition: "0.5s linear all",
               position: "absolute",
-              left: this.sideToStartPosition(this.props.playerPositionForShoot, this.props.playerSideForShoot)[0],
-              top: this.sideToStartPosition(this.props.playerPositionForShoot, this.props.playerSideForShoot)[1]
+              left: this.state.position[0],
+              top: this.state.position[1]
           }}>
-              arrow
+              <img src={this.spriteToMoveArrow(this.props.playerSideForShoot)}/>
           </div>
         )
     }
 
-
     render() {
         return (
             <>
-                {this.state.isLife ? this.renderArrow() : null}
+                {this.renderArrow()}
             </>
         )
     }
@@ -130,8 +126,10 @@ class Arrow extends React.PureComponent {
 export default connect(
     state => ({
         life: state.arrow.life,
+        playerPositionForShoot: state.player.position,
+        playerSideForShoot: state.player.side,
     }),
     dispatch => ({
-        isLife: () => dispatch(actionIsLifeArrow())
+        // isStopArrowLife: () => dispatch(actionIsStopLifeArrow)
     }),
 )(Arrow);

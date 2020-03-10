@@ -7,10 +7,9 @@ import SHOOT_NORTH from "../dist/Sprite/Player/Player_shoot_north.png"
 import SHOOT_EAST from "../dist/Sprite/Player/Player_shoot_east.png"
 import SHOOT_SOUTH from "../dist/Sprite/Player/Player_shoot_south.png"
 import ARROW_WEST from "../dist/img/arrow/arrow_west.png"
-import ARROW_EAST from "../dist/img/arrow/arrow_west.png"
-import ARROW_SOUTH from "../dist/img/arrow/arrow_west.png"
-import ARROW_NORTH from "../dist/img/arrow/arrow_west.png"
-
+import ARROW_EAST from "../dist/img/arrow/arrow_east.png"
+import ARROW_SOUTH from "../dist/img/arrow/arrow_south.png"
+import ARROW_NORTH from "../dist/img/arrow/arrow_north.png"
 
 export const PLAYER_MOVE_WEST = MOVE_WEST;
 export const PLAYER_MOVE_NORTH = MOVE_NORTH;

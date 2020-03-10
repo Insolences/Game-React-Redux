@@ -3,7 +3,7 @@ import {
     MOVE_PLAYER,
     SHOOT_PLAYER,
     STOP_SHOOT_PLAYER,
-    IS_LIFE_ARROW
+    IS_STOP_LIFE_ARROW,
 } from "../../Config/Action";
 
 export const initState = {
@@ -31,7 +31,7 @@ export function WorldReducer(state = initState, action) {
         case STOP_SHOOT_PLAYER:{
             return {...state, playerShoot: shoot}
         }
-        case IS_LIFE_ARROW: {
+        case IS_STOP_LIFE_ARROW: {
             let newArrowInMap = state.arrowInMap;
             newArrowInMap.shift();
             return {...state, arrowInMap: newArrowInMap }

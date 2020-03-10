@@ -4,3 +4,4 @@ export const MOVE_PLAYER = "MOVE_PLAYER";
 export const STOP_PLAYER = "STOP_PLAYER";
 export const SHOOT_PLAYER = "SHOOT_PLAYER";
 export const STOP_SHOOT_PLAYER = "STOP_SHOOT_PLAYER";
+export const IS_STOP_LIFE_ARROW = "IS_STOP_LIFE_ARROW";
