@@ -1,15 +1,21 @@
-import MOVE_WEST from "../dist/Sprite/Player/Player_move_west.png"
-import MOVE_NORTH from "../dist/Sprite/Player/Player_move_north.png"
-import MOVE_EAST from "../dist/Sprite/Player/Player_move_east.png"
-import MOVE_SOUTH from "../dist/Sprite/Player/Player_move_south.png"
-import SHOOT_WEST from "../dist/Sprite/Player/Player_shoot_west.png"
-import SHOOT_NORTH from "../dist/Sprite/Player/Player_shoot_north.png"
-import SHOOT_EAST from "../dist/Sprite/Player/Player_shoot_east.png"
-import SHOOT_SOUTH from "../dist/Sprite/Player/Player_shoot_south.png"
-import ARROW_WEST from "../dist/img/arrow/arrow_west.png"
-import ARROW_EAST from "../dist/img/arrow/arrow_east.png"
-import ARROW_SOUTH from "../dist/img/arrow/arrow_south.png"
-import ARROW_NORTH from "../dist/img/arrow/arrow_north.png"
+import MOVE_WEST from "../dist/Sprite/Player/Player_move_west.png";
+import MOVE_NORTH from "../dist/Sprite/Player/Player_move_north.png";
+import MOVE_EAST from "../dist/Sprite/Player/Player_move_east.png";
+import MOVE_SOUTH from "../dist/Sprite/Player/Player_move_south.png";
+import SHOOT_WEST from "../dist/Sprite/Player/Player_shoot_west.png";
+import SHOOT_NORTH from "../dist/Sprite/Player/Player_shoot_north.png";
+import SHOOT_EAST from "../dist/Sprite/Player/Player_shoot_east.png";
+import SHOOT_SOUTH from "../dist/Sprite/Player/Player_shoot_south.png";
+import ARROW_WEST from "../dist/img/arrow/arrow_west.png";
+import ARROW_EAST from "../dist/img/arrow/arrow_east.png";
+import ARROW_SOUTH from "../dist/img/arrow/arrow_south.png";
+import ARROW_NORTH from "../dist/img/arrow/arrow_north.png";
+import ENEMY_WEST from "../dist/Sprite/Enemy/orc_move_west.png";
+import ENEMY_EAST from "../dist/Sprite/Enemy/orc_move_east.png";
+import ENEMY_NORTH from "../dist/Sprite/Enemy/orc_move_north.png";
+import ENEMY_SOUTH from "../dist/Sprite/Enemy/orc_move_south.png";
+import PLAYER_DEATH from "../dist/Sprite/Player/Player_die.png";
+import ENEMY_DEATH from "../dist/Sprite/Enemy/orc_death.png";
 
 export const PLAYER_MOVE_WEST = MOVE_WEST;
 export const PLAYER_MOVE_NORTH = MOVE_NORTH;
@@ -19,7 +25,13 @@ export const PLAYER_SHOOT_WEST = SHOOT_WEST;
 export const PLAYER_SHOOT_NORTH = SHOOT_NORTH;
 export const PLAYER_SHOOT_EAST = SHOOT_EAST;
 export const PLAYER_SHOOT_SOUTH = SHOOT_SOUTH;
+export const ENEMY_MOVE_WEST = ENEMY_WEST;
+export const ENEMY_MOVE_EAST = ENEMY_EAST;
+export const ENEMY_MOVE_NORTH = ENEMY_NORTH;
+export const ENEMY_MOVE_SOUTH = ENEMY_SOUTH;
 export const ARROW_MOVE_WEST = ARROW_WEST;
 export const ARROW_MOVE_NORTH = ARROW_NORTH;
 export const ARROW_MOVE_EAST = ARROW_EAST;
 export const ARROW_MOVE_SOUTH = ARROW_SOUTH;
+export const PLAYER_IS_DEAD = PLAYER_DEATH;
+export const ENEMY_IS_DEAD = ENEMY_DEATH;

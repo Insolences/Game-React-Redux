@@ -12,9 +12,19 @@ export function getNewAction(direction) {
     case "WALK_SOUTH":
       return { side: "SOUTH", steps: 7, animation: "WALK_SOUTH" };
     case "SHOOT_WEST":
-      return { side: "WEST", steps: 13, animation: "SHOOT_WEST", shoot: true };
+      return {
+        side: "WEST",
+        steps: 13,
+        animation: "SHOOT_WEST",
+        shoot: true
+      };
     case "SHOOT_EAST":
-      return { side: "EAST", steps: 13, animation: "SHOOT_EAST", shoot: true };
+      return {
+        side: "EAST",
+        steps: 13,
+        animation: "SHOOT_EAST",
+        shoot: true
+      };
     case "SHOOT_NORTH":
       return {
         side: "NORTH",

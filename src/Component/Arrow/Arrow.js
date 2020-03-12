@@ -11,7 +11,6 @@ import {
 
 class Arrow extends React.PureComponent {
   state = {
-    isLife: true,
     position: [
       this.props.playerPositionForShoot[0],
       this.props.playerPositionForShoot[1]
@@ -42,10 +41,8 @@ class Arrow extends React.PureComponent {
   }
 
   sideToStartPosition(playerPositionForShoot, playerSideForShoot) {
-    console.log("playerSideForShoot: ", playerSideForShoot);
     let newPos;
     let oldPos = playerPositionForShoot;
-    console.log("oldPos: ", oldPos);
     switch (playerSideForShoot) {
       case "WEST":
         newPos = [oldPos[0] - SPRITE_SIZE, oldPos[1]];
@@ -59,7 +56,6 @@ class Arrow extends React.PureComponent {
       case "SOUTH":
         newPos = [oldPos[0], oldPos[1] + SPRITE_SIZE];
     }
-    console.log(oldPos, newPos, playerSideForShoot);
     this.movementArrow(oldPos, newPos, playerSideForShoot);
   }
 
@@ -79,9 +75,6 @@ class Arrow extends React.PureComponent {
     store.dispatch({
       type: "IS_STOP_LIFE_ARROW"
     });
-    // this.setState({
-    //   isLife: false
-    // });
   }
 
   permittedBorderMovement(oldPos, newPos) {
@@ -114,10 +107,10 @@ class Arrow extends React.PureComponent {
           "justify-content": "center",
           width: 64,
           height: 64,
-          // transition: "0.2s linear all",
           position: "absolute",
           left: this.state.position[0],
           top: this.state.position[1]
+          // transition: "1s linear all"
         }}
       >
         <img src={this.spriteToMoveArrow(this.props.playerSideForShoot)} />
@@ -136,7 +129,5 @@ export default connect(
     playerPositionForShoot: state.player.position,
     playerSideForShoot: state.player.side
   }),
-  dispatch => ({
-    // isStopArrowLife: () => dispatch(actionIsStopLifeArrow)
-  })
+  null
 )(Arrow);
