@@ -50,9 +50,10 @@ class Player extends React.PureComponent {
           />
         ) : (
           <SpriteAnimation
-            side={this.props.side}
             steps={this.props.steps}
             animation={this.props.animation}
+            loop={true}
+            autoplay={true}
           />
         )}
       </div>
@@ -63,6 +64,7 @@ class Player extends React.PureComponent {
 export default connect(
   state => ({
     isInit: state.player.isInit,
+    life: state.player.life,
     position: state.player.position,
     side: state.player.side,
     steps: state.player.steps,

@@ -38,7 +38,7 @@ export const initState = {
 export function EnemyReducer(state = initState, action) {
   switch (action.type) {
     case IS_DEAD_ENEMY: {
-      return { ...state, life: false };
+      return { ...state };
     }
   }
 

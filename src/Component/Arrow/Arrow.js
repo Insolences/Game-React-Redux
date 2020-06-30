@@ -8,6 +8,7 @@ import {
   ARROW_MOVE_SOUTH,
   ARROW_MOVE_WEST
 } from "../../constants/Animation.sprite";
+import { actionForDeadEnemy } from "../../Config/Action";
 
 class Arrow extends React.PureComponent {
   state = {
@@ -62,14 +63,15 @@ class Arrow extends React.PureComponent {
   movementArrow(oldPos, newPos, playerSideForShoot) {
     if (
       this.permittedBorderMovement(oldPos, newPos) &&
-      this.permittedArrowMovement(newPos)
+      this.permittedArrowMovement(newPos) &&
+      this.permittedEnemy(newPos)
     ) {
       this.setState({
         position: newPos
       });
       return setTimeout(
         () => this.sideToStartPosition(newPos, playerSideForShoot),
-        20
+        100
       );
     }
     store.dispatch({
@@ -98,6 +100,20 @@ class Arrow extends React.PureComponent {
     return true;
   }
 
+  permittedEnemy(newPos) {
+    const enemyInMap = this.props.enemyInMap;
+    let findEnemy = enemyInMap.find(
+      enemy =>
+        enemy.position[0] === newPos[0] && enemy.position[1] === newPos[1]
+    );
+    console.log("findEnemy: ", findEnemy);
+    if (!findEnemy) {
+      return true;
+    }
+    this.props.eventForDeadEnemy(findEnemy.id);
+    return false;
+  }
+
   renderArrow() {
     return (
       <div
@@ -109,8 +125,8 @@ class Arrow extends React.PureComponent {
           height: 64,
           position: "absolute",
           left: this.state.position[0],
-          top: this.state.position[1]
-          // transition: "1s linear all"
+          top: this.state.position[1],
+          transition: "all 0.4s linear"
         }}
       >
         <img src={this.spriteToMoveArrow(this.props.playerSideForShoot)} />
@@ -127,7 +143,10 @@ export default connect(
   state => ({
     life: state.arrow.life,
     playerPositionForShoot: state.player.position,
-    playerSideForShoot: state.player.side
+    playerSideForShoot: state.player.side,
+    enemyInMap: state.world.enemyInMap
   }),
-  null
+  dispatch => ({
+    eventForDeadEnemy: id => dispatch(actionForDeadEnemy(id))
+  })
 )(Arrow);

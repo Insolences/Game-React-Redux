@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Enemy.module.css";
 import { connect } from "react-redux";
-import { actionIsInit } from "../../Config/Action";
+import { actionIsInit, actionForDead } from "../../Config/Action";
 import { SpriteAnimation } from "../../otherComponents/SpriteAnimation";
 import {
   ENEMY_MOVE_EAST,
@@ -22,25 +22,60 @@ export class Enemy extends React.PureComponent {
     steps: this.props.steps
   };
 
+  componentDidMount() {
+    setInterval(() => this.enemyMovement(), 1000);
+  }
+
+  randomMoveSide() {
+    let min = 1;
+    let max = 4;
+    let rand = min + Math.random() * (max + 1 - min);
+    let res = Math.floor(rand);
+    switch (res) {
+      case 1:
+        return "ENEMY_WEST";
+        break;
+      case 2:
+        return "ENEMY_NORTH";
+        break;
+      case 3:
+        return "ENEMY_EAST";
+        break;
+      case 4:
+        return "ENEMY_SOUTH";
+    }
+  }
+
   enemySide() {
-    this.enemyMovement();
     const side = this.props.side;
     switch (side) {
-      case "WEST":
+      case "ENEMY_WEST":
         return ENEMY_MOVE_WEST;
-      case "NORTH":
+      case "ENEMY_NORTH":
         return ENEMY_MOVE_NORTH;
-      case "EAST":
+      case "ENEMY_EAST":
         return ENEMY_MOVE_EAST;
-      case "SOUTH":
+      case "ENEMY_SOUTH":
         return ENEMY_MOVE_SOUTH;
     }
   }
 
   enemyMovement() {
-    console.log("here");
-    let id = this.props.id;
-    this.props.movement(id);
+    this.attackEnemy();
+    let id = this.state.id;
+    let side = this.randomMoveSide();
+    this.props.movement(id, side);
+  }
+
+  attackEnemy() {
+    const playerPosition = this.props.playerPosition;
+    const enemyPosition = this.props.position;
+    if (
+      playerPosition[0] === enemyPosition[0] &&
+      playerPosition[1] === enemyPosition[1]
+    ) {
+      this.props.eventForDeadPlayer(playerPosition, enemyPosition);
+    }
   }
 
   render() {
@@ -73,9 +108,11 @@ export class Enemy extends React.PureComponent {
           />
         ) : (
           <SpriteAnimation
-            side={this.props.side}
-            steps={this.props.steps}
-            animation={this.props.animation}
+            side={side}
+            steps={steps}
+            animation={animation}
+            loop={true}
+            autoplay={true}
           />
         )}
       </div>
@@ -85,15 +122,11 @@ export class Enemy extends React.PureComponent {
 
 export default connect(
   state => ({
-    isInit: state.player.isInit,
-    position: state.player.position,
-    side: state.player.side,
-    steps: state.player.steps,
-    stand: state.player.stand,
-    shoot: state.player.shoot,
-    animation: state.player.animation
+    playerPosition: state.player.position
   }),
   dispatch => ({
-    init: () => dispatch(actionIsInit())
+    init: () => dispatch(actionIsInit()),
+    eventForDeadPlayer: (playerPosition, enemyPosition) =>
+      dispatch(actionForDead(playerPosition, enemyPosition))
   })
 )(Enemy);

@@ -2,11 +2,13 @@ import {
   IS_INIT,
   MOVE_PLAYER,
   MOVE_ENEMY,
-  STOP_ENEMY,
   SHOOT_PLAYER,
   STOP_SHOOT_PLAYER,
-  IS_STOP_LIFE_ARROW
+  IS_STOP_LIFE_ARROW,
+  IS_DEAD_PLAYER,
+  IS_DEAD_ENEMY
 } from "../../Config/Action";
+import { enemyMovement } from "../../features/enemy.movement";
 
 export const initState = {
   isInit: false,
@@ -21,7 +23,7 @@ export const initState = {
       life: true,
       position: [448, 192],
       stand: true,
-      side: "SOUTH",
+      side: "ENEMY_SOUTH",
       animation: "",
       steps: 0
     },
@@ -49,7 +51,9 @@ export const initState = {
 };
 
 export function WorldReducer(state = initState, action) {
-  const { position, side, shoot } = { ...action.payload };
+  const { position, side, shoot, id, enemySide } = {
+    ...action.payload
+  };
   switch (action.type) {
     case IS_INIT: {
       return { ...state, isInit: true };
@@ -62,8 +66,26 @@ export function WorldReducer(state = initState, action) {
       };
     }
     case MOVE_ENEMY: {
-      let id = action.payload.id;
+      let tileMap = action.payload.tileMap;
+      let enemy = state.enemyInMap.find(el => el.id === id);
+      enemy.stand = false;
+      enemy.side = enemySide;
+      let newOptionsEnemy = enemyMovement(enemy, tileMap);
+      enemy.position = newOptionsEnemy.position;
+      enemy.steps = newOptionsEnemy.steps;
+      enemy.animation = newOptionsEnemy.animation;
+      enemy.stand = newOptionsEnemy.stand;
+      return { ...state };
+    }
+    case IS_DEAD_ENEMY: {
+      let newEnemyInMap = state.enemyInMap.slice();
+      newEnemyInMap = newEnemyInMap.filter(el => el.id !== id);
       console.log(id);
+      console.log("newEnemyInMap: ", newEnemyInMap);
+      return {
+        ...state,
+        enemyInMap: newEnemyInMap
+      };
     }
     case SHOOT_PLAYER: {
       let newArrowInMap = state.arrowInMap;

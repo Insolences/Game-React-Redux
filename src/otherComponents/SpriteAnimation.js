@@ -9,6 +9,10 @@ import {
   PLAYER_SHOOT_NORTH,
   PLAYER_SHOOT_EAST,
   PLAYER_SHOOT_SOUTH,
+  ENEMY_MOVE_EAST,
+  ENEMY_MOVE_NORTH,
+  ENEMY_MOVE_SOUTH,
+  ENEMY_MOVE_WEST,
   PLAYER_IS_DEAD,
   ENEMY_IS_DEAD
 } from "../constants/Animation.sprite";
@@ -34,13 +38,21 @@ export class SpriteAnimation extends React.PureComponent {
         return PLAYER_SHOOT_SOUTH;
       case "PLAYER_DEATH":
         return PLAYER_IS_DEAD;
+      case "ENEMY_WEST":
+        return ENEMY_MOVE_WEST;
+      case "ENEMY_NORTH":
+        return ENEMY_MOVE_NORTH;
+      case "ENEMY_SOUTH":
+        return ENEMY_MOVE_SOUTH;
+      case "ENEMY_EAST":
+        return ENEMY_MOVE_EAST;
       case "ENEMY_DEATH":
         return ENEMY_IS_DEAD;
     }
   }
 
   render() {
-    const { steps, animation } = this.props;
+    const { steps, animation, loop, autoplay } = this.props;
     return (
       <Spritesheet
         heightFrame={64}
@@ -48,8 +60,8 @@ export class SpriteAnimation extends React.PureComponent {
         fps={16}
         image={this.renderImageAnimation(animation)}
         widthFrame={64}
-        loop={true}
-        autoplay={true}
+        loop={loop}
+        autoplay={autoplay}
       />
     );
   }

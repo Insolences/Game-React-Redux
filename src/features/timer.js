@@ -1,12 +1,7 @@
-// export function timer (seconds, tick, result) {
-//     if (seconds > 0) {
-//         tick(seconds);
-//         seconds -= 1;
-//         setTimeout(function () {
-//             timer(seconds, tick, result);
-//         }, 1000);
-//     } else {
-//         result();
-//     }
-// }
-
+export function randomTimeToMove() {
+  let min = 1;
+  let max = 4;
+  let rand = min + Math.random() * (max + 1 - min);
+  let res = Math.floor(rand);
+  return res;
+}

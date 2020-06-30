@@ -9,8 +9,28 @@ import {
   MOVE_ENEMY
 } from "./Type";
 
+export const actionIsMoveEnemy = (id, enemySide, tileMap) => {
+  return {
+    type: MOVE_ENEMY,
+    payload: { id, enemySide, tileMap }
+  };
+};
+
+export const actionForDead = (playerPosition, enemyPosition) => {
+  return {
+    type: IS_DEAD_PLAYER,
+    payload: { playerPosition, enemyPosition }
+  };
+};
+
+export const actionForDeadEnemy = id => {
+  return {
+    type: IS_DEAD_ENEMY,
+    payload: { id }
+  };
+};
+
 export const actionIsInit = createAction(IS_INIT);
-export const actionIsMoveEnemy = createAction(MOVE_ENEMY);
 export const actionIsLifeArrow = createAction(IS_LIFE_ARROW);
 export const actionIsStopLifeArrow = createAction(IS_STOP_LIFE_ARROW);
 export const actionIsDeadEnemy = createAction(IS_DEAD_ENEMY);
