@@ -26,23 +26,21 @@ class World extends React.PureComponent {
   };
 
   enemy() {
-    if (this.props.enemyInMap.length > 0) {
-      return this.props.enemyInMap.map(el => (
-        <Enemy
-          index={el}
-          id={el.id}
-          position={el.position}
-          name={el.name}
-          life={el.life}
-          stand={el.stand}
-          side={el.side}
-          animation={el.animation}
-          steps={el.steps}
-          movement={this.moveEnemy}
-        />
-      ));
-    }
-    return null;
+    return this.props.enemyInMap.map((el, i) => (
+      <Enemy
+        index={el}
+        id={el.id}
+        key={i}
+        position={el.position}
+        name={el.name}
+        life={el.life}
+        stand={el.stand}
+        side={el.side}
+        animation={el.animation}
+        steps={el.steps}
+        movement={this.moveEnemy}
+      />
+    ));
   }
 
   render() {

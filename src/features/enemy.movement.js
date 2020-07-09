@@ -31,31 +31,7 @@ export function enemyMovement(enemy, tileMap) {
       animation: action.animation,
       stand: false
     };
-    // store.dispatch({
-    //   type: "MOVE_ENEMY",
-    //   payload: {
-    //     position: newPos,
-    //     side: action.side,
-    //     steps: action.steps,
-    //     animation: action.animation,
-    //     stand: false
-    //   }
-    // });
   }
-
-  // let stopMovement = function() {
-  //   if (!store.getState().player.stand) {
-  //     store.dispatch({
-  //       type: "STOP_PLAYER",
-  //       payload: {
-  //         stand: true,
-  //         animation: "",
-  //         steps: 0
-  //       }
-  //     });
-  //   }
-  //   return null;
-  // };
 
   function permittedBorderMovement(oldPos, newPos) {
     return (
@@ -91,8 +67,5 @@ export function enemyMovement(enemy, tileMap) {
         return [oldPos[0], oldPos[1] + SPRITE_SIZE];
     }
   }
-  // setTimeout(() => {
-  //   newPosEnemy.stand = true;
-  // }, 1000);
   return newPosEnemy;
 }

@@ -106,7 +106,6 @@ class Arrow extends React.PureComponent {
       enemy =>
         enemy.position[0] === newPos[0] && enemy.position[1] === newPos[1]
     );
-    console.log("findEnemy: ", findEnemy);
     if (!findEnemy) {
       return true;
     }

@@ -79,9 +79,16 @@ export function WorldReducer(state = initState, action) {
     }
     case IS_DEAD_ENEMY: {
       let newEnemyInMap = state.enemyInMap.slice();
-      newEnemyInMap = newEnemyInMap.filter(el => el.id !== id);
-      console.log(id);
-      console.log("newEnemyInMap: ", newEnemyInMap);
+      let deadEnemy = newEnemyInMap.find(el => el.id === id);
+      let index = 0;
+      newEnemyInMap.forEach((item, i) => {
+        if (item.id === id) {
+          index = i;
+        }
+      });
+      deadEnemy.life = false;
+      deadEnemy.stand = true;
+      newEnemyInMap.splice(index, 1, deadEnemy);
       return {
         ...state,
         enemyInMap: newEnemyInMap

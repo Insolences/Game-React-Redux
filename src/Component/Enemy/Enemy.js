@@ -1,29 +1,35 @@
 import React from "react";
 import s from "./Enemy.module.css";
 import { connect } from "react-redux";
-import { actionIsInit, actionForDead } from "../../Config/Action";
+import Spritesheet from "react-responsive-spritesheet";
 import { SpriteAnimation } from "../../otherComponents/SpriteAnimation";
+import {
+  actionIsInit,
+  actionForDead,
+  actionForDeadEnemy
+} from "../../Config/Action";
 import {
   ENEMY_MOVE_EAST,
   ENEMY_MOVE_NORTH,
   ENEMY_MOVE_SOUTH,
-  ENEMY_MOVE_WEST
+  ENEMY_MOVE_WEST,
+  ENEMY_IS_DEAD
 } from "../../constants/Animation.sprite";
 
 export class Enemy extends React.PureComponent {
   state = {
-    id: this.props.id,
-    life: this.props.life,
-    position: this.props.position,
-    name: this.props.name,
-    stand: this.props.stand,
-    side: this.props.side,
-    animation: this.props.animation,
-    steps: this.props.steps
+    intervalId: null
   };
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.life !== this.props.life) {
+      clearInterval(this.state.intervalId);
+    }
+  }
+
   componentDidMount() {
-    setInterval(() => this.enemyMovement(), 1000);
+    let intervalId = setInterval(() => this.enemyMovement(), 1000);
+    this.setState({ intervalId: intervalId });
   }
 
   randomMoveSide() {
@@ -62,7 +68,7 @@ export class Enemy extends React.PureComponent {
 
   enemyMovement() {
     this.attackEnemy();
-    let id = this.state.id;
+    let id = this.props.id;
     let side = this.randomMoveSide();
     this.props.movement(id, side);
   }
@@ -78,17 +84,43 @@ export class Enemy extends React.PureComponent {
     }
   }
 
+  renderAnimation(life, stand, side, steps, animation) {
+    if (life === true && stand === true) {
+      return (
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            background: `url(${this.enemySide()})`
+          }}
+        />
+      );
+    } else if (!life) {
+      return (
+        <Spritesheet
+          heightFrame={64}
+          steps={6}
+          fps={16}
+          image={ENEMY_IS_DEAD}
+          widthFrame={64}
+          loop={false}
+          autoplay={true}
+        />
+      );
+    } else
+      return (
+        <SpriteAnimation
+          side={side}
+          steps={steps}
+          animation={animation}
+          loop={true}
+          autoplay={true}
+        />
+      );
+  }
+
   render() {
-    const {
-      life,
-      position,
-      id,
-      name,
-      stand,
-      side,
-      animation,
-      steps
-    } = this.props;
+    const { life, position, stand, side, animation, steps } = this.props;
     return (
       <div
         className={s.enemy}
@@ -98,23 +130,7 @@ export class Enemy extends React.PureComponent {
           transition: "1s linear all"
         }}
       >
-        {stand ? (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              background: `url(${this.enemySide()})`
-            }}
-          />
-        ) : (
-          <SpriteAnimation
-            side={side}
-            steps={steps}
-            animation={animation}
-            loop={true}
-            autoplay={true}
-          />
-        )}
+        {this.renderAnimation(life, stand, side, steps, animation)}
       </div>
     );
   }
