@@ -3,25 +3,33 @@ import "./App.css";
 import World from "../World/World";
 import { Preloader } from "../Preloader";
 import { connect } from "react-redux";
-import { actionIsInit } from "../../Config/Action";
+import { actionIsInit, actionShowStartModal } from "../../Config/Action";
+import { Modal } from "../Modal";
 
 export class App extends React.PureComponent {
   componentDidMount() {
-    this.props.init();
+    //imitation loadScreen
+    setTimeout(() => {
+      this.props.init();
+    }, 4000);
+    this.props.showModal();
   }
+
   render() {
     if (!this.props.isInit) {
       return <Preloader />;
     }
-    return <World />;
+    return <>{this.props.modal ? <Modal /> : <World />}</>;
   }
 }
 
 export default connect(
   state => ({
-    isInit: state.app.isInit
+    isInit: state.app.isInit,
+    modal: state.app.modal
   }),
   dispatch => ({
+    showModal: () => dispatch(actionShowStartModal()),
     init: () => dispatch(actionIsInit())
   })
 )(App);

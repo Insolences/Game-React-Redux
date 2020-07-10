@@ -6,7 +6,11 @@ import {
   IS_STOP_LIFE_ARROW,
   IS_DEAD_ENEMY,
   IS_DEAD_PLAYER,
-  MOVE_ENEMY
+  MOVE_ENEMY,
+  SHOW_START_MODAL,
+  SHOW_DEAD_PLAYER_MODAL,
+  SHOW_DEAD_ENEMY_MODAL,
+  CLOSE_START_MODAL
 } from "./Type";
 
 export const actionIsMoveEnemy = (id, enemySide, tileMap) => {
@@ -35,3 +39,7 @@ export const actionIsLifeArrow = createAction(IS_LIFE_ARROW);
 export const actionIsStopLifeArrow = createAction(IS_STOP_LIFE_ARROW);
 export const actionIsDeadEnemy = createAction(IS_DEAD_ENEMY);
 export const actionIsDeadPlayer = createAction(IS_DEAD_PLAYER);
+export const actionShowStartModal = createAction(SHOW_START_MODAL);
+export const actionCloseStartModal = createAction(CLOSE_START_MODAL);
+export const actionShowDeadPlayerModal = createAction(SHOW_DEAD_PLAYER_MODAL);
+export const actionShowDeadEnemyModal = createAction(SHOW_DEAD_ENEMY_MODAL);

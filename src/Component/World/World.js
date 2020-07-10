@@ -28,7 +28,6 @@ class World extends React.PureComponent {
   enemy() {
     return this.props.enemyInMap.map((el, i) => (
       <Enemy
-        index={el}
         id={el.id}
         key={i}
         position={el.position}
@@ -47,9 +46,8 @@ class World extends React.PureComponent {
     return (
       <div
         style={{
-          width: 1300,
+          width: 1280,
           height: 780,
-          margin: "20px auto",
           position: "relative"
         }}
       >
