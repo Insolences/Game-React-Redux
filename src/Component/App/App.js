@@ -8,7 +8,7 @@ import { Modal } from "../Modal";
 
 export class App extends React.PureComponent {
   componentDidMount() {
-    //imitation loadScreen
+    //imitation 'loading'
     setTimeout(() => {
       this.props.init();
     }, 4000);

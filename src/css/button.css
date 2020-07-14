@@ -1,15 +1,3 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.img{
-    width: 1280px;
-    height: 780px;
-}
-
 /* ~~~~~~~ INIT. BTN ~~~~~~~ */
 
 .btn {
@@ -33,7 +21,7 @@
 }
 
 .btn:hover {
-    /*color: var(--def);*/
+    color: black;
     transition-delay: .5s;
 }
 
@@ -42,7 +30,7 @@
 }
 
 .btn:hover:after {
-    /*background: var(--inv);*/
+    background: white;
     transition-delay: .35s;
 }
 
@@ -57,7 +45,7 @@
 
 .from-top:before {
     bottom: 0;
-    /*border: 1px solid var(--inv);*/
+    border: 1px solid white;
     border-top: 0;
     border-bottom: 0;
 }
