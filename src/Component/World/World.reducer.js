@@ -5,7 +5,6 @@ import {
   SHOOT_PLAYER,
   STOP_SHOOT_PLAYER,
   IS_STOP_LIFE_ARROW,
-  IS_DEAD_PLAYER,
   IS_DEAD_ENEMY
 } from "../../Config/Action";
 import { enemyMovement } from "../../features/enemy.movement";
@@ -16,6 +15,7 @@ export const initState = {
   playerSideForShoot: "SOUTH",
   playerShoot: false,
   arrowInMap: [],
+  enemyDeadCount: 0,
   enemyInMap: [
     {
       id: 1,
@@ -78,6 +78,7 @@ export function WorldReducer(state = initState, action) {
       return { ...state };
     }
     case IS_DEAD_ENEMY: {
+      let enemyCount = state.enemyDeadCount;
       let newEnemyInMap = state.enemyInMap.slice();
       let deadEnemy = newEnemyInMap.find(el => el.id === id);
       let index = 0;
@@ -89,9 +90,11 @@ export function WorldReducer(state = initState, action) {
       deadEnemy.life = false;
       deadEnemy.stand = true;
       newEnemyInMap.splice(index, 1, deadEnemy);
+      enemyCount++;
       return {
         ...state,
-        enemyInMap: newEnemyInMap
+        enemyInMap: newEnemyInMap,
+        enemyDeadCount: enemyCount
       };
     }
     case SHOOT_PLAYER: {

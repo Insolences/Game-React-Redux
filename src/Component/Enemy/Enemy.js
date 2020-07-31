@@ -6,7 +6,8 @@ import { SpriteAnimation } from "../../otherComponents/SpriteAnimation";
 import {
   actionIsInit,
   actionForDead,
-  actionForDeadEnemy
+  actionForDeadEnemy,
+  actionShowDeadPlayerModal
 } from "../../Config/Action";
 import {
   ENEMY_MOVE_EAST,
@@ -81,6 +82,7 @@ export class Enemy extends React.PureComponent {
       playerPosition[1] === enemyPosition[1]
     ) {
       this.props.eventForDeadPlayer(playerPosition, enemyPosition);
+      this.props.eventForRunModal();
     }
   }
 
@@ -143,6 +145,7 @@ export default connect(
   dispatch => ({
     init: () => dispatch(actionIsInit()),
     eventForDeadPlayer: (playerPosition, enemyPosition) =>
-      dispatch(actionForDead(playerPosition, enemyPosition))
+      dispatch(actionForDead(playerPosition, enemyPosition)),
+    eventForRunModal: () => dispatch(actionShowDeadPlayerModal())
   })
 )(Enemy);

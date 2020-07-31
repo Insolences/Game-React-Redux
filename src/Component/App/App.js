@@ -12,24 +12,33 @@ export class App extends React.PureComponent {
     setTimeout(() => {
       this.props.init();
     }, 4000);
-    this.props.showModal();
+    this.props.showStartModal();
   }
 
   render() {
     if (!this.props.isInit) {
       return <Preloader />;
     }
-    return <>{this.props.modal ? <Modal /> : <World />}</>;
+    return (
+      <>
+        {this.props.modalForStart ? (
+          <Modal modalAction={this.props.modalValue} />
+        ) : (
+          <World />
+        )}
+      </>
+    );
   }
 }
 
 export default connect(
   state => ({
     isInit: state.app.isInit,
-    modal: state.app.modal
+    modalForStart: state.modal.modalForStart,
+    modalValue: state.modal.value
   }),
   dispatch => ({
-    showModal: () => dispatch(actionShowStartModal()),
+    showStartModal: () => dispatch(actionShowStartModal()),
     init: () => dispatch(actionIsInit())
   })
 )(App);

@@ -4,20 +4,46 @@ import { connect } from "react-redux";
 import ReactModal from "react-modal";
 import {
   actionCloseStartModal,
-  actionIsInit,
-  actionShowStartModal
+  actionShowStartModal,
+  actionShowDeadPlayerModal
 } from "../../Config/Action";
 import img from "../../dist/img/content/2.jpg";
 import keyArrowImg from "../../dist/img/keyboard/keys-arrow-text-sign.png";
 import keySpaceImg from "../../dist/img/keyboard/bar_keyboard_space_tutorial-512.png";
 
-import s from "./Modal.css";
 import "../../css/button.css";
 
 ReactModal.defaultStyles.content.padding = 0;
 
 export class Modal extends React.PureComponent {
-  renderModal() {
+  renderDeadPlayerModal() {
+    return (
+      <div
+        style={{
+          display: "flex",
+          height: "100%",
+          width: "100%",
+          "align-items": "center",
+          "justify-content": "center",
+          backgroundColor: "red"
+        }}
+      >
+        <div className="btn from-top" onClick={this.handleRestartGame}>
+          RESTART
+        </div>
+      </div>
+    );
+  }
+
+  handleRestartGame() {
+    console.log("RESTART");
+  }
+
+  renderEndModal() {
+    console.log("All enemy is dead");
+  }
+
+  renderStartModal() {
     return (
       <div
         style={{
@@ -95,7 +121,6 @@ export class Modal extends React.PureComponent {
                 width: 174,
                 height: 122,
                 display: "flex",
-                // "flex-direction": "column",
                 "align-items": "flex-start",
                 "justify-content": "start"
               }}
@@ -110,7 +135,7 @@ export class Modal extends React.PureComponent {
             </div>
             <h2>SHOOT</h2>
           </div>
-          <div className="btn from-top" onClick={this.handleCloseModal}>
+          <div className="btn from-top" onClick={this.handleCloseStartModal}>
             START
           </div>
         </div>
@@ -118,18 +143,28 @@ export class Modal extends React.PureComponent {
     );
   }
 
-  handleCloseModal = () => {
+  renderModal() {
+    switch (this.props.modalAction) {
+      case "SHOW_DEAD_PLAYER_MODAL":
+        return this.renderDeadPlayerModal();
+      case "SHOW_START_MODAL":
+        return this.renderStartModal();
+      case "SHOW_DEAD_ENEMY_MODAL":
+        return this.renderEndModal();
+    }
+  }
+
+  handleCloseStartModal = () => {
     this.props.closeStartModal();
   };
 
   render() {
     return (
-      <div style={s.container}>
-        <h1>TEST TEST TEST</h1>
+      <div>
         <ReactModal
-          isOpen={this.props.modal}
+          isOpen={this.props.modalForStart || false}
           contentLabel="START THE GAME"
-          onRequestClose={this.handleCloseModal}
+          onRequestClose={this.handleCloseStartModal}
           shouldCloseOnOverlayClick={false}
           style={{
             overlay: {
@@ -149,13 +184,16 @@ export class Modal extends React.PureComponent {
     );
   }
 }
+
 export default connect(
   state => ({
-    modal: state.app.modal
+    modalForStart: state.modal.modalForStart,
+    deadPlayerModal: state.modal.deadPlayerModal,
+    modalForEnd: state.modal.modalForEnd
   }),
   dispatch => ({
-    showModal: () => dispatch(actionShowStartModal()),
-    closeStartModal: () => dispatch(actionCloseStartModal()),
-    init: () => dispatch(actionIsInit())
+    showStartModal: () => dispatch(actionShowStartModal()),
+    deadPlayerModal: () => dispatch(actionShowDeadPlayerModal()),
+    closeStartModal: () => dispatch(actionCloseStartModal())
   })
 )(Modal);

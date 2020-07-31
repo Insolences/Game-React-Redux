@@ -7,8 +7,10 @@ import {
 } from "../Action";
 
 const initState = {
-  isInit: false,
-  modal: false
+  isInit: false
+  // modalForStart: false,
+  // deadPlayerModal: false,
+  // modalForEnd: false
 };
 
 export function RootReducer(state = initState, action) {
@@ -16,12 +18,18 @@ export function RootReducer(state = initState, action) {
     case IS_INIT: {
       return { ...state, isInit: true };
     }
-    case SHOW_START_MODAL || SHOW_DEAD_ENEMY_MODAL || SHOW_DEAD_PLAYER_MODAL: {
-      return { ...state, modal: true };
-    }
-    case CLOSE_START_MODAL: {
-      return { ...state, modal: false };
-    }
+    // case SHOW_START_MODAL: {
+    //   return { ...state, modalForStart: true };
+    // }
+    // case SHOW_DEAD_ENEMY_MODAL: {
+    //   return { ...state, modalForEnd: true };
+    // }
+    // case SHOW_DEAD_PLAYER_MODAL: {
+    //   return { ...state, deadPlayerModal: true };
+    // }
+    // case CLOSE_START_MODAL: {
+    //   return { ...state, modalForStart: false };
+    // }
   }
   return state;
 }
