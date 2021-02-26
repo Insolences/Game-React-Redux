@@ -1,5 +1,3 @@
-import { createAction } from "redux-actions";
-
 import {
   IS_INIT,
   IS_LIFE_ARROW,
@@ -34,12 +32,56 @@ export const actionForDeadEnemy = id => {
   };
 };
 
-export const actionIsInit = createAction(IS_INIT);
-export const actionIsLifeArrow = createAction(IS_LIFE_ARROW);
-export const actionIsStopLifeArrow = createAction(IS_STOP_LIFE_ARROW);
-export const actionIsDeadEnemy = createAction(IS_DEAD_ENEMY);
-export const actionIsDeadPlayer = createAction(IS_DEAD_PLAYER);
-export const actionShowStartModal = createAction(SHOW_START_MODAL);
-export const actionCloseStartModal = createAction(CLOSE_START_MODAL);
-export const actionShowDeadPlayerModal = createAction(SHOW_DEAD_PLAYER_MODAL);
-export const actionShowDeadEnemyModal = createAction(SHOW_DEAD_ENEMY_MODAL);
+export const actionIsInit = () => {
+  return {
+    type: IS_INIT
+  };
+};
+
+export const actionIsDeadPlayer = () => {
+  return {
+    type: IS_DEAD_PLAYER
+  };
+};
+
+export const actionShowStartModal = () => {
+  return {
+    type: SHOW_START_MODAL
+  };
+};
+
+export const actionCloseStartModal = () => {
+  return {
+    type: CLOSE_START_MODAL
+  };
+};
+
+export const actionShowDeadPlayerModal = () => {
+  return {
+    type: SHOW_DEAD_PLAYER_MODAL
+  };
+};
+
+export const actionShowDeadEnemyModal = () => {
+  return {
+    type: SHOW_DEAD_ENEMY_MODAL
+  };
+};
+
+export const actionIsLifeArrow = () => {
+  return {
+    type: IS_LIFE_ARROW
+  };
+};
+
+export const actionIsStopLifeArrow = () => {
+  return {
+    type: IS_STOP_LIFE_ARROW
+  };
+};
+
+export const actionIsDeadEnemy = () => {
+  return {
+    type: IS_DEAD_ENEMY
+  };
+};

@@ -5,7 +5,8 @@ import ReactModal from "react-modal";
 import {
   actionCloseStartModal,
   actionShowStartModal,
-  actionShowDeadPlayerModal
+  actionShowDeadPlayerModal,
+  actionShowDeadEnemyModal
 } from "../../Config/Action";
 import img from "../../dist/img/content/2.jpg";
 import keyArrowImg from "../../dist/img/keyboard/keys-arrow-text-sign.png";
@@ -16,6 +17,12 @@ import "../../css/button.css";
 ReactModal.defaultStyles.content.padding = 0;
 
 export class Modal extends React.PureComponent {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.enemyDeadCount === 3) {
+      this.eventModalForEnd();
+    }
+  }
+
   renderDeadPlayerModal() {
     return (
       <div
@@ -36,48 +43,38 @@ export class Modal extends React.PureComponent {
   }
 
   handleRestartGame() {
-    console.log("RESTART");
+    document.location.reload();
   }
 
   renderEndModal() {
-    console.log("All enemy is dead");
-  }
-
-  renderStartModal() {
     return (
       <div
         style={{
           display: "flex",
           height: "100%",
-          "align-items": "flex-start",
-          "justify-content": "start"
+          width: "100%",
+          "align-items": "center",
+          "justify-content": "center",
+          backgroundColor: "black",
+          flexDirection: "column"
         }}
       >
-        <div
-          style={{
-            height: "100%",
-            width: "50%"
-          }}
-        >
-          <img
-            src={img}
-            style={{
-              width: "100%",
-              height: "100%"
-            }}
-          />
+        <h1>Congratulations!!!</h1>
+        <h2>All enemy is dead</h2>
+        <div className="btn from-top" onClick={this.handleRestartGame}>
+          PLAY AGAIN
         </div>
-        <div
-          style={{
-            display: "flex",
-            width: "48%",
-            height: "100%",
-            "flex-direction": "column",
-            "align-items": "center",
-            "justify-content": "space-evenly",
-            margin: "auto"
-          }}
-        >
+      </div>
+    );
+  }
+
+  renderStartModal() {
+    return (
+      <div className="mainStart">
+        <div className="imgBlock">
+          <img src={img} className="img" />
+        </div>
+        <div className="contentBlock">
           <h1>WELCOME MY DEAR FRIEND!</h1>
           <div
             style={{
@@ -155,14 +152,18 @@ export class Modal extends React.PureComponent {
   }
 
   handleCloseStartModal = () => {
-    this.props.closeStartModal();
+    this.props.eventCloseStartModal();
   };
 
   render() {
     return (
       <div>
         <ReactModal
-          isOpen={this.props.modalForStart || false}
+          isOpen={
+            this.props.modalForStart ||
+            this.props.deadPlayerModal ||
+            this.props.modalForEnd
+          }
           contentLabel="START THE GAME"
           onRequestClose={this.handleCloseStartModal}
           shouldCloseOnOverlayClick={false}
@@ -187,13 +188,15 @@ export class Modal extends React.PureComponent {
 
 export default connect(
   state => ({
+    enemyDeadCount: state.world.enemyDeadCount,
     modalForStart: state.modal.modalForStart,
     deadPlayerModal: state.modal.deadPlayerModal,
     modalForEnd: state.modal.modalForEnd
   }),
   dispatch => ({
-    showStartModal: () => dispatch(actionShowStartModal()),
-    deadPlayerModal: () => dispatch(actionShowDeadPlayerModal()),
-    closeStartModal: () => dispatch(actionCloseStartModal())
+    eventShowStartModal: () => dispatch(actionShowStartModal()),
+    eventDeadPlayerModal: () => dispatch(actionShowDeadPlayerModal()),
+    eventModalForEnd: () => dispatch(actionShowDeadEnemyModal()),
+    eventCloseStartModal: () => dispatch(actionCloseStartModal())
   })
 )(Modal);

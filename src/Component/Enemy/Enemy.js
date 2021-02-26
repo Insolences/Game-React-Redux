@@ -82,7 +82,7 @@ export class Enemy extends React.PureComponent {
       playerPosition[1] === enemyPosition[1]
     ) {
       this.props.eventForDeadPlayer(playerPosition, enemyPosition);
-      this.props.eventForRunModal();
+      this.props.eventForRunDeadPlayerModal();
     }
   }
 
@@ -146,6 +146,6 @@ export default connect(
     init: () => dispatch(actionIsInit()),
     eventForDeadPlayer: (playerPosition, enemyPosition) =>
       dispatch(actionForDead(playerPosition, enemyPosition)),
-    eventForRunModal: () => dispatch(actionShowDeadPlayerModal())
+    eventForRunDeadPlayerModal: () => dispatch(actionShowDeadPlayerModal())
   })
 )(Enemy);

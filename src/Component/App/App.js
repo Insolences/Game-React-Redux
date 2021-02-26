@@ -12,7 +12,7 @@ export class App extends React.PureComponent {
     setTimeout(() => {
       this.props.init();
     }, 4000);
-    this.props.showStartModal();
+    this.props.eventShowStartModal();
   }
 
   render() {
@@ -38,7 +38,7 @@ export default connect(
     modalValue: state.modal.value
   }),
   dispatch => ({
-    showStartModal: () => dispatch(actionShowStartModal()),
+    eventShowStartModal: () => dispatch(actionShowStartModal()),
     init: () => dispatch(actionIsInit())
   })
 )(App);
